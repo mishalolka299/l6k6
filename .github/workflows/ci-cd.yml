@@ -104,7 +104,7 @@ jobs:
     name: CD docker build
     runs-on: ubuntu-latest
     needs: [api-tests, k6-tests]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && (needs.api-tests.result == 'success' || needs.api-tests.result == 'skipped') && (needs.k6-tests.result == 'success' || needs.k6-tests.result == 'skipped')
+    if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main' && (needs.api-tests.result == 'success' || needs.api-tests.result == 'skipped') && (needs.k6-tests.result == 'success' || needs.k6-tests.result == 'skipped')
 
     steps:
       - name: Checkout
