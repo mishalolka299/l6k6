@@ -4,9 +4,7 @@ on:
   push:
     branches:
       - main
-      - feature
       - feature/**
-      - fix
       - fix/**
   pull_request:
     branches:
@@ -21,7 +19,6 @@ jobs:
   api-tests:
     name: Product API tests
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/feature' || startsWith(github.ref, 'refs/heads/feature/') || github.ref == 'refs/heads/fix' || startsWith(github.ref, 'refs/heads/fix/')
 
     steps:
       - name: Checkout
@@ -38,14 +35,13 @@ jobs:
       - name: Build
         run: dotnet build Lab7.slnx --no-restore --configuration Release
 
-      - name: Run ProductApiTests
-        run: dotnet test Lab7.Tests/Lab7.Tests.csproj --configuration Release --no-build --filter "FullyQualifiedName~ProductApiTests"
+      - name: Run tests
+        run: dotnet test Lab7.Tests/Lab7.Tests.csproj --no-build --configuration Release --verbosity normal
 
   k6-tests:
     name: k6 API tests
     runs-on: ubuntu-latest
     needs: api-tests
-    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/feature' || startsWith(github.ref, 'refs/heads/feature/') || github.ref == 'refs/heads/fix' || startsWith(github.ref, 'refs/heads/fix/')
 
     steps:
       - name: Checkout
