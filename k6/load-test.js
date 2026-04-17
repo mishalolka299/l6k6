@@ -12,7 +12,7 @@ const searchTrend = new Trend('search_duration');
 function isJsonArray(response) {
   try {
     return Array.isArray(response.json());
-  } catch {
+  } catch (error) {
     return false;
   }
 }

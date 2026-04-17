@@ -15,7 +15,7 @@ export const options = {
 function isJsonArray(response) {
   try {
     return Array.isArray(response.json());
-  } catch {
+  } catch (error) {
     return false;
   }
 }
