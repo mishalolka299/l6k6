@@ -19,6 +19,7 @@ jobs:
   api-tests:
     name: Product API tests
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/fix/')
 
     steps:
       - name: Checkout
@@ -42,6 +43,7 @@ jobs:
     name: k6 API tests
     runs-on: ubuntu-latest
     needs: api-tests
+    if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/fix/')
 
     steps:
       - name: Checkout
@@ -102,7 +104,7 @@ jobs:
     name: CD docker build
     runs-on: ubuntu-latest
     needs: [api-tests, k6-tests]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && (needs.api-tests.result == 'success' || needs.api-tests.result == 'skipped') && (needs.k6-tests.result == 'success' || needs.k6-tests.result == 'skipped')
 
     steps:
       - name: Checkout
