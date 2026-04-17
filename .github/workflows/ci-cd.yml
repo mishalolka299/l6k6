@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - main
+      - feature
       - feature/**
+      - fix
       - fix/**
   pull_request:
     branches:
@@ -19,7 +21,7 @@ jobs:
   api-tests:
     name: Product API tests
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/fix/')
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/feature' || startsWith(github.ref, 'refs/heads/feature/') || github.ref == 'refs/heads/fix' || startsWith(github.ref, 'refs/heads/fix/')
 
     steps:
       - name: Checkout
@@ -43,7 +45,7 @@ jobs:
     name: k6 API tests
     runs-on: ubuntu-latest
     needs: api-tests
-    if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/fix/')
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/feature' || startsWith(github.ref, 'refs/heads/feature/') || github.ref == 'refs/heads/fix' || startsWith(github.ref, 'refs/heads/fix/')
 
     steps:
       - name: Checkout
