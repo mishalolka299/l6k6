@@ -8,7 +8,7 @@ using Testcontainers.PostgreSql;
 using Xunit;
 
 namespace Lab7.Tests;
-
+//for commit on feature
 public class ProductApiTests : IAsyncLifetime
 {
     private INetwork _network = null!;
