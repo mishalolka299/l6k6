@@ -9,6 +9,7 @@ using Xunit;
 
 namespace Lab7.Tests;
 //for commit on feature
+//for commit on main
 public class ProductApiTests : IAsyncLifetime
 {
     private INetwork _network = null!;
