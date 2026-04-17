@@ -1,0 +1,22 @@
+# Build artifacts
+**/bin/
+**/obj/
+
+# User/IDE files
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Test results
+TestResults/
+*.trx
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
