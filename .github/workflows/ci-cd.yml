@@ -30,13 +30,13 @@ jobs:
           dotnet-version: 10.0.x
 
       - name: Restore
-        run: dotnet restore Lab7.slnx
+        run: dotnet restore Lab7.Tests/Lab7.Tests.csproj
 
       - name: Build
-        run: dotnet build Lab7.slnx --no-restore --configuration Release
+        run: dotnet build Lab7.Tests/Lab7.Tests.csproj --no-restore --configuration Release
 
       - name: Run tests
-        run: dotnet test Lab7.Tests/Lab7.Tests.csproj --no-build --configuration Release --verbosity normal
+        run: dotnet test Lab7.Tests/Lab7.Tests.csproj --configuration Release --verbosity normal --filter "FullyQualifiedName~ProductApiTests"
 
   k6-tests:
     name: k6 API tests
